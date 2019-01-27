@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#000">
+
+    <title>Proto.io</title>
+
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+
+    <header>
+        <h4 id="quiz-title"></h4>
+        <h5 id="quiz-description"></h5>
+    </header>
+
+    <div id="scoreboard">
+        <div class="score-container">
+            <span id="score-hint">Current Score: </span>
+            <span id="score">
+                <span id="points">0</span>
+                <span>/ 20</span>
+            </span>
+        </div>
+        <span id="added-points">+ 4</span>
+    </div>
+    
+    <main>
+        <div class="container">
+            <div id="question-container">                
+                <h3 id="question"></h3>
+                <img id="question-image" src="" alt="An image describing the current question">
+                <form id="choices">
+                    <div id="truefalse"></div>
+                    <div id="mutiplechoice-single"></div>
+                    <div id="mutiplechoice-multiple"></div>
+                </form>
+                <button class="btn" form="choices" type="submit" id="submit-button">Check Answer</button>
+            </div>
+
+            <div id="results">
+                <h2>Grade: 
+                    <strong><u><span id="results-percentage"></span></u></strong>
+                </h2>
+                <div id="results-container">
+                    <h3 id="results-title"></h3>
+                    <h4 id="results-message"></h4>
+                    <img src="" id="results-image">
+                </div>
+                <button class="btn" type="button" onclick="init()" id="retry-button">Retry</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="thumbs-up">
+        <h3>👍</h3>
+    </div>
+
+    <div id="thumbs-down">
+        <h3>👎</h3>
+    </div>
+
+    <script src="./js/http.utils.js"></script>
+    <script src="./js/answer.utils.js"></script>
+    <script src="./js/question.utils.js"></script>
+    <script src="./js/results.utils.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
