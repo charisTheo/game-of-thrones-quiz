@@ -6,29 +6,17 @@ let currentQuestion = {};
 let score = 0;
 let pointsDOM = document.getElementById('points');
 let submitBtn = document.getElementById('submit-button');
-let QUESTION_TYPES = [
-    {
-        type: "mutiplechoice-single", 
-        render: function (question) {renderMultipleChoiceSingle(question)}
-    },
-    {
-        type: "mutiplechoice-multiple", 
-        render: function (question) {renderMultipleChoiceMultiple(question)}
-    },
-    {
-        type: "truefalse", 
-        render: function (question) {renderTruefalse(question)}
-    },
-];
+let mainForm = document.forms["choices"];
 
 document.body.onload = function () 
 {
-    document.forms[0].onchange = function () {
+    mainForm.onchange = function () {
         // if nothing selected disable the submit button
         if (!document.querySelectorAll("input[type=checkbox]:checked, input[type=radio]:checked").length)
             submitBtn.setAttribute('disabled', true);
         else submitBtn.removeAttribute('disabled');
     }
+    mainForm.onsubmit = checkAnswer;
     init();
 }
 

@@ -5,10 +5,11 @@
         // disable submit button
         submitBtn.setAttribute('disabled', true);
         let values = [];
-        let formElements = document.forms[0].elements;
+        let formElements = mainForm.elements;
         for (let i = 0; i < formElements.length; i++) {
             if (formElements[i].getAttribute("type") !== "submit") 
             {
+                // save values of all input elements
                 values.push({
                     value: formElements[i].checked,
                     choice: formElements[i].value,
@@ -31,13 +32,19 @@
 
         for (let i = 0; i < values.length; i++) 
         {
+            // if this element is a correct answer
             if (correctAnswers.includes(values[i].choice))
             {
+                // save the element and check for user input 
                 correctAnswerElements.push(values[i].element);
                 if (!values[i].value)
+                    // if user has not selecte the correct answer set a flag
                     wrongAnswerFlag = true;
-            } else if (values[i].value && !wrongAnswerElements.includes(values[i].elements) && !correctAnswerElements.includes(values[i].elements)) 
+            } else if (values[i].value 
+                && !wrongAnswerElements.includes(values[i].elements) 
+                && !correctAnswerElements.includes(values[i].elements)) 
             {
+                // if user has selected a wrong choice save the input element for output later
                 wrongAnswerFlag = true;
                 wrongAnswerElements.push(values[i].element);
             }
@@ -51,18 +58,23 @@
 
     function validateAnswer (correctAnswerElements, wrongAnswerElements, points = undefined) 
     {
+        const thumbsUp = document.getElementById('thumbs-up');
+        const thumbsDown = document.getElementById('thumbs-down');
+        const mainContainer = document.querySelector('main .container');
+        const addedPoints = document.getElementById('added-points');
+
         if (points) {
             score += points;
             // update the DOM
             pointsDOM.innerText = score;
             // show added points
-            document.getElementById('added-points').innerHTML = "+ " + points;
-            document.getElementById('added-points').classList.add('fade');
+            addedPoints.innerHTML = "+ " + points;
+            addedPoints.classList.add('fade');
             // show validation to user
-            document.getElementById('thumbs-up').classList.add('active');
+            thumbsUp.classList.add('active');
         } else {
             // show validation to user
-            document.getElementById('thumbs-down').classList.add('active');
+            thumbsDown.classList.add('active');
             for (let i = 0; i < wrongAnswerElements.length; i++) {
                 // show wrong user answers
                 wrongAnswerElements[i].classList.add('wrong');
@@ -74,16 +86,16 @@
             correctAnswerElements[i].classList.add('correct');
         }
         // delay 3 seconds
-        document.querySelector('main .container').classList.add('fade');
+        mainContainer.classList.add('fade');
         setTimeout(function () 
         {
             // next question
             nextQuestion();
             // hide added validation elements
-            document.getElementById('added-points').classList.remove('fade');
-            document.querySelector('main .container').classList.remove('fade');
-            document.getElementById('thumbs-down').classList.remove('active');
-            document.getElementById('thumbs-up').classList.remove('active');
+            addedPoints.classList.remove('fade');
+            mainContainer.classList.remove('fade');
+            thumbsDown.classList.remove('active');
+            thumbsUp.classList.remove('active');
         }, 3000);
     }
     
